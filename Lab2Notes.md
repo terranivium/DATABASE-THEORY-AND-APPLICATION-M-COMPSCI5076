@@ -1,6 +1,27 @@
 DTA(M): Lab 2 Notes
 
-Researchers, Achademic Institutions, collaborations.
+Task 1:
+
+Relations:
+
+Owner(owner name, phone) name + phone PK, owner name FK, cannot be NULL, used to see ownership of dog
+
+Dog(Dog ID, mother, father, owner name, name, breed name, kennel) Dog ID PK, owner name FK
+
+Breed(Breed ID) Breed ID PK & FK
+
+Kennel(unique name, address, phone number) unique name PK and FK, cannot be null
+
+Show(name, opening date, closing date) name + opening date PK, name FK, cannot be null (maybe unique ID attribute?)
+
+Relationships:
+
+Attendence (relation between dog and show)(show name, opening date, rank, dog) show name + opening date PK, dog FK
+
+
+Task 2:
+
+Researchers, Achademic Institutions, collaborations among researchers.
 
 Researcher can be a prof or assistant.
 
@@ -32,9 +53,89 @@ could query/ask the database to: retrieve all the researchers from the School of
 Science whose highest degree is PhD and were supervised by the same supervisor. Plan
 your query by determining which relations, attributes and relationships to involve.
 
+Relations:
 
-Step 1: Find instances of Assistant and Professor with position in school of computing.
+Researcher(rid, name, degree level, dob) 
+RID PK
 
-Step 2: Find instances of result(step 1) with degree level PHD. 
+School(sid, name, institution) 
+SID PK, Institution FK (references Institution)
 
-Step 3: Find research paper relationships between assistant and professor with common supervisor attribute.
+Institution(iid, name, country, inaug. year) 
+IID PK 
+
+Research Project(rpid, title, start date end date, supervisor(s), author(s), grant/awards) 
+rpid PK, supervisor || authors FK (both reference a researcher's ID)
+
+Employment(rid, position, start end date(s), school, institution?) 
+rid PK, school FK
+
+TASK - employment(school == school of computing), researcher(degree == PHD), is researchProject(author), has researchProject(supervisor == x).
+
+
+Task 3:
+
+Relations:
+
+Emp(eid, ename, age, salary)
+Works(eid, did, pcttime)
+Dept(did, dname, budget, managerid)
+
+3.1: The Dept (x) relation must be carefully altered, it is ok to delete manager id as 1:1 manager to dept. budget affects emp(salary) salary analysis reliability for employee. it also creates scenario that some employees will not be assigned to a set of WORKS (or clock pcctime) via did @ x DEPT.
+
+3.2: Deletion can only be completed if tuple abides by following constraints: all current dept employees must be set to works in another/replacement did and be assigned pcttime accordingly. (Budget reassigned? Manager reassigned? Optionals.)
+
+3.3: 
+
+Relations:
+
+customer(cust_id, name, street_address, city) 
+cust_id PK, FK (references borrower)
+
+loan(loan_id, amount) 
+loan_id PK, FK (references borrower)
+
+borrower(cust_id, loan_id, access_date) 
+cust_id + loan_id PK, cust_id FK (referneces customer),loan_id FK (references loan)
+
+3.4:
+
+employee(employee_id, name)
+eid PK, eid FK (references works_for), manager_id FK (references works_for)
+
+works_for(employee_id, manager_id)
+employee_id + manager_id PK, manager_id FK, employee_id FK
+
+3.5:
+
+employee(person_name, street, city)
+person_name + street PK
+
+works(person_name, company_name, salary)
+person_name, company_name, salary PK
+
+company(company_name, city)
+company_name, city PK
+
+3.6:
+
+It is possible, however we would be better to use a unique ID, as when the database has more tuples inserted we may run into issues.
+
+3.7:
+
+Person(ssn, name, gender, job, studio, title, year)
+SSN PK - FK (studio) refs Studio, FK (title, year) refs Movie
+
+Category(cat)
+PK, FK
+
+Movie(title, year, length, director, studio, cat)
+title, year PK - FK (director) refs Person (ssn), FK (studio) refs Studio, FK (cat) refs Category
+
+Cast(ssn, title, year, character)
+SSN, Title, Year PK - FK (ssn) refs Person, FK (title, year) refs Movie
+
+Studio(studio, city)
+Studio PK
+
+
