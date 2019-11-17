@@ -10,8 +10,6 @@ FROM DOG AS d, OWNER AS o
 WHERE d.ownerid = o.ownerid
 AND d.name < 'Laser'
 
-
-
 2. NOT FROM SOLUTIONS
 SELECT d
 FROM DOG AS d, KENNEL AS k
