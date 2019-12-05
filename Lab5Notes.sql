@@ -56,4 +56,4 @@ highDegree VARCHAR(50),
 FOREIGN KEY (schoolName,institutionName) REFERENCES School(name,insitutionName),
 PRIMARY KEY (professorID, studentID, projectID));
 
-not sure if this is the best solution? hard to tell from spec.
+--not sure if this is the best solution? hard to tell from spec.
